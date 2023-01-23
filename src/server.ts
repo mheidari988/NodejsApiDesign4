@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 
 const app = express();
 
@@ -7,4 +7,4 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Hey there..." });
 });
 
-module.exports = app;
+export default app;
