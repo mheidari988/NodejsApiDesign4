@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { validation } from './middlewares/validation-middleware';
 import { productsHandler } from './handlers/products-handler';
+import { updatesHandler } from './handlers/updates-handler';
 
 const router = Router();
 
@@ -17,17 +18,11 @@ router.put('/product/:id', validation.putProduct, productsHandler.updateProduct)
 router.delete('/product/:id', productsHandler.deleteProduct);
 
 // Updates
-router.get('/update', (req, res) => {
-    res.status(500).json('Not Implemented');
-});
+router.get('/update', updatesHandler.getUpdates);
 
-router.get('/update/:id', (req, res) => {
-    res.status(500).json('Not Implemented');
-});
+router.get('/update/:id', updatesHandler.getUpdateById);
 
-router.post('/update', validation.postUpdate, (req, res) => {
-    res.status(500).json('Not Implemented');
-});
+router.post('/update', validation.postUpdate, updatesHandler.createUpdate);
 
 router.put('/update/:id', validation.putUpdate, (req, res) => {
     res.status(500).json('Not Implemented');

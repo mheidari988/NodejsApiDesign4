@@ -17,7 +17,6 @@ model User {
   username   String       @unique
   password   String
   products   Product[]
-  updateUser UpdateUser[]
 }
 
 model Product {
@@ -41,7 +40,7 @@ enum UPDATE_STATUS {
 model Update {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime? 
 
   title   String
   body    String
@@ -53,26 +52,14 @@ model Update {
   product   Product @relation(fields: [productId], references: [id])
 
   updatePoint UpdatePoint[]
-  updateUser  UpdateUser[]
 
   @@unique([id, productId])
-}
-
-model UpdateUser {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
-  updateId String
-  update   Update @relation(fields: [updateId], references: [id])
 }
 
 model UpdatePoint {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime?
 
   name        String @db.VarChar(255)
   description String
