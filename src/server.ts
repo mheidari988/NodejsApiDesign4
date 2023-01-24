@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import router from './router';
 import { protect } from "./modules/auth";
-import { Level1Limiter, Level3Limiter } from "./modules/rateLimiter";
+import { Level3Limiter } from "./modules/rateLimiter";
 import { createNewUser, signIn } from "./handlers/users-handler";
 
 const app = express();
@@ -24,10 +24,19 @@ app.post('/signin', signIn);
 app.use('/api', protect, router);
 
 app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({
-    message: 'Server Error'
-  });
+  if (err.type === 'auth') {
+    res.status(401).json({
+      message: 'unauthorized'
+    });
+  } else if (err.type === 'input') {
+    res.status(400).json({
+      message: 'invalid input'
+    });
+  } else {
+    res.status(500).json({
+      message: 'server down'
+    });
+  }
 })
 
 export default app;
