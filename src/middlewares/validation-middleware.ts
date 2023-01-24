@@ -34,7 +34,7 @@ const postUpdate = [
 const putUpdate = [
     body('title').optional(),
     body('body').optional(),
-    body('status').optional().isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRICATED']),
+    body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRICATED']).optional(),
     body('version').optional(),
     body('asset').optional(),
     badrequest
