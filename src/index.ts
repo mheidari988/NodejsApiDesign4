@@ -1,8 +1,9 @@
 import server from './server';
 import dotenv from 'dotenv';
+import config from './config/index';
 
 dotenv.config();
 
-server.listen(3000, () => {
-    console.log('Server is running on port 3000');
+server.listen(config.port, () => {
+    console.log(`Server is running on port ${config.port}`);
 });
