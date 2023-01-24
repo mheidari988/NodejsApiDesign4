@@ -15,8 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  console.log("Hello from Express!");
-  res.status(200).json({ message: "Hey there..." });
+  res.status(200).json({ message: "Server is up." });
 });
 app.post('/signup', createNewUser);
 app.post('/signin', signIn);
