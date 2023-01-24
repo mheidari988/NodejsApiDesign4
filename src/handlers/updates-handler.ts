@@ -60,11 +60,70 @@ const createUpdate = async (req, res) => {
     res.status(200).json({ data: update });
 }
 
-const updateUpdate = (req, res) => {
+const updateUpdate = async (req, res) => {
+    const products = await prisma.product.findMany({
+        where: {
+            belongsToId: req.user.id
+        },
+        include: {
+            updates: true
+        }
+    });
 
+    const updates = products.reduce((allUpdates, product) => {
+        return [...allUpdates, ...product.updates]
+    }, []);
+
+    const match = updates.find(u => u.id === req.params.id);
+
+    if (!match) {
+        return res.status(404).json({
+            message: 'update not found'
+        });
+    }
+
+    const updatedUpdate = await prisma.update.update({
+        where: {
+            id: req.params.id
+        },
+        data: req.body
+    });
+
+    res.status(200).json({
+        data: updatedUpdate
+    });
 }
-const deleteUpdate = (req, res) => {
+const deleteUpdate = async (req, res) => {
+    const products = await prisma.product.findMany({
+        where: {
+            belongsToId: req.user.id
+        },
+        include: {
+            updates: true
+        }
+    });
 
+    const updates = products.reduce((allUpdates, product) => {
+        return [...allUpdates, ...product.updates]
+    }, []);
+
+    const match = updates.find(u => u.id === req.params.id);
+
+    if (!match) {
+        return res.status(404).json({
+            message: 'update not found'
+        });
+    }
+
+    const deletedUpdate = await prisma.update.delete({
+        where: {
+            id: req.params.id
+        }
+    });
+
+    res.status(200).json({
+        data: deletedUpdate
+    });
 }
 
 export const updatesHandler = { getUpdateById, getUpdates, createUpdate, updateUpdate, deleteUpdate };

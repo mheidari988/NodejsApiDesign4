@@ -24,13 +24,9 @@ router.get('/update/:id', updatesHandler.getUpdateById);
 
 router.post('/update', validation.postUpdate, updatesHandler.createUpdate);
 
-router.put('/update/:id', validation.putUpdate, (req, res) => {
-    res.status(500).json('Not Implemented');
-});
+router.put('/update/:id', validation.putUpdate, updatesHandler.updateUpdate);
 
-router.delete('/update/:id', (req, res) => {
-    res.status(500).json('Not Implemented');
-});
+router.delete('/update/:id', updatesHandler.deleteUpdate);
 
 // Updates Points
 router.get('/updatepoint', (req, res) => {

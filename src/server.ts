@@ -23,4 +23,11 @@ app.post('/signin', signIn);
 
 app.use('/api', protect, router);
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({
+    message: 'Server Error'
+  });
+})
+
 export default app;
