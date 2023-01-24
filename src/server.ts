@@ -4,7 +4,7 @@ import cors from 'cors';
 import router from './router';
 import { protect } from "./modules/auth";
 import { Level1Limiter, Level3Limiter } from "./modules/rateLimiter";
-import { createNewUser, signIn } from "./handlers/user";
+import { createNewUser, signIn } from "./handlers/users-handler";
 
 const app = express();
 
